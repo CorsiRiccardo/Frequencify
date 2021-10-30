@@ -140,7 +140,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3156142156834089705, guid: 63a5758befb03b74bb818733d21b5195, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3156142156834089705, guid: 63a5758befb03b74bb818733d21b5195, type: 3}
       propertyPath: m_AnchorMax.x
@@ -310,6 +310,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2079257278561399056, guid: 1cb798b640956024eb359588f3fef6cc, type: 3}
+      propertyPath: isActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2079257278561399057, guid: 1cb798b640956024eb359588f3fef6cc, type: 3}
       propertyPath: m_Name
       value: AudioAnalizer

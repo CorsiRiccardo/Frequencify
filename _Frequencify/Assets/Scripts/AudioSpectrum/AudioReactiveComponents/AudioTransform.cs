@@ -5,16 +5,16 @@ namespace WordsManagement.AudioReactiveComponents {
 
 	[RequireComponent(typeof(Transform))]
 	public class AudioTransform : AudioReactiveComponent {
-		private Transform transform;
+		private Transform t;
 
 		private void Awake() {
-			transform = GetComponent<Transform>();
+			t = GetComponent<Transform>();
 		}
 
 		public override void SoundUpdate() {
 			var value = audioEnvironmentModifier.GetFrequency(freq);
 			var clampedValue = Mathf.Clamp(value, minValue, maxValue);
-			transform.localScale = Vector3.one * clampedValue;
+			t.localScale = Vector3.one * clampedValue;
 		}
 	}
 }

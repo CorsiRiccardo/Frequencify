@@ -21,9 +21,9 @@ public class AudioEnvironmentModifier : Singleton<AudioEnvironmentModifier> {
 	private float midsIntensity = 0;
 	private float highsIntensity = 0;
 	
-	[SerializeField]private float bassIntensityMultiplier = 0;
-	[SerializeField]private float midsIntensityMultiplier = 0;
-	[SerializeField]private float highsIntensityMultiplier = 0;
+	private float bassIntensityMultiplier = 300;
+	private float midsIntensityMultiplier = 1000;
+	private float highsIntensityMultiplier = 10000;
 
 	[SerializeField] private bool debug;
 
