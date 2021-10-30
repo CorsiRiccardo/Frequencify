@@ -11,3 +11,17 @@ A track analyzing tool to audio-responsive enhance the environment
 4. Press Play!
 
 > Or just go in the **Example Scene**. 
+
+# Current Status and future updates
+
+At the moment the supported components are:
+- Transform
+
+Planned next:
+
+- Colliders
+- Rigidbody
+- Camera
+
+and more...
+
