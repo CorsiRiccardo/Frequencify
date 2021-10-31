@@ -2,14 +2,10 @@
 
 namespace WordsManagement.AudioReactiveComponents {
 
-	public class SE_TransformRotation : SE_Unit {
+	public class SE_TransformRotation : SE_Transform {
 		
-		private Transform transform;
-		public SE_TransformRotation(Transform t) {
-			transform = t;
-		}
 
-		public void Update(AudioTransform.TransformUnit unit,float amount) {
+		public override void Update(Vector3 frequencies) {
 			
 			switch (unit) {
 				case AudioTransform.TransformUnit.XRotation:
@@ -21,6 +17,8 @@ namespace WordsManagement.AudioReactiveComponents {
 			}
 			
 		}
+
+		public SE_TransformRotation(Transform transform) : base(transform) { }
 	}
 
 }

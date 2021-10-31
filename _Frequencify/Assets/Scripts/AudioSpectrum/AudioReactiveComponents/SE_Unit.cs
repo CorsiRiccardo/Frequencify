@@ -1,7 +1,6 @@
 ﻿namespace WordsManagement.AudioReactiveComponents {
 
-	public class SE_Unit {
-		
+	public abstract class SE_Unit {
 	}
 
 }

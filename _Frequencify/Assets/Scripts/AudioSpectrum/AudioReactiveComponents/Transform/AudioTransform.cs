@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using static AudioEnvironmentModifier;
 
@@ -8,8 +9,7 @@ namespace WordsManagement.AudioReactiveComponents {
 	[RequireComponent(typeof(Transform))]
 	public class AudioTransform : AudioReactiveComponent {
 		private Transform t;
-		private Dictionary<TransformUnit, SE_Unit> components;
-
+		private List<SE_Transform> units;
 		public enum TransformUnit {
 			XPosition,
 			YPosition,
@@ -24,33 +24,59 @@ namespace WordsManagement.AudioReactiveComponents {
 
 		[Serializable]
 		private struct AudioTransformStruct {
-			[SerializeField]private TransformUnit unit;
-			[SerializeField]private Freq linkedFrequency;
+			public TransformUnit unit;
+			public Freq linkedFrequency;
 		}
 
-		private TransformUnit[] units;
-		[SerializeField]private AudioTransformStruct[] modifiers;
+		[SerializeField] private AudioTransformStruct[] modifiers;
+		private Dictionary<TransformUnit,Type> unitClasses;
 
 		private void Awake() {
 			t = GetComponent<Transform>();
-			components = new Dictionary<TransformUnit, SE_Unit>()
+			unitClasses = new Dictionary<TransformUnit, Type>()
 			{
-				{ TransformUnit.XPosition, new SE_TransformPosition() },
-				{ TransformUnit.YPosition,  new SE_TransformPosition()},
-				{ TransformUnit.ZPosition,  new SE_TransformPosition()},
-				{ TransformUnit.XRotation, new SE_TransformRotation(t) },
-				{ TransformUnit.YRotation, new SE_TransformRotation(t) },
-				{ TransformUnit.ZRotation, new SE_TransformRotation(t) },
-				{ TransformUnit.XScale, new SE_TransformScale() },
-				{ TransformUnit.YScale, new SE_TransformScale() },
-				{ TransformUnit.ZScale, new SE_TransformScale()},
+				{ TransformUnit.XPosition, typeof(SE_TransformPosition) },
+				{ TransformUnit.YPosition,typeof(SE_TransformPosition) },
+				{ TransformUnit.ZPosition, typeof(SE_TransformPosition) },
+				{ TransformUnit.XRotation,typeof(SE_TransformRotation) },
+				{ TransformUnit.YRotation, typeof(SE_TransformRotation) },
+				{ TransformUnit.ZRotation, typeof(SE_TransformRotation) },
+				{ TransformUnit.XScale, typeof(SE_TransformScale) },
+				{ TransformUnit.YScale, typeof(SE_TransformScale) },
+				{ TransformUnit.ZScale, typeof(SE_TransformScale) },
 			};
 		}
 
+		public override void Start() {
+			base.Start();
+			InitUnits();
+		}
+
+		private void InitUnits() {
+			units = new List<SE_Transform>();
+			foreach (AudioTransformStruct transformStruct in modifiers) {
+				Type type = unitClasses[transformStruct.unit];
+				var instance = Activator.CreateInstance(type);
+				if (instance is SE_Transform seUnit) {
+					seUnit.SetTransform(t);
+					seUnit.SetUnit(transformStruct.unit);
+					units.Add(seUnit);
+				}
+			}
+			Debug.Log($"Units count:{units.Count}");
+		}
+
 		public override void SoundUpdate() {
-			var value = audioEnvironmentModifier.GetFrequency(freq);
-			var clampedValue = Mathf.Clamp(value, minValue, maxValue);
-			t.localScale = Vector3.one * clampedValue;
+			// var value = audioEnvironmentModifier.GetFrequency(freq);
+			// var clampedValue = Mathf.Clamp(value, minValue, maxValue);
+			// t.localScale = Vector3.one * clampedValue;
+			var bassAmount = Mathf.Clamp(audioEnvironmentModifier.GetFrequency(Freq.Bass),minValue,maxValue);
+			var midAmount = Mathf.Clamp(audioEnvironmentModifier.GetFrequency(Freq.Mid),minValue,maxValue);
+			var highAmount =  Mathf.Clamp(audioEnvironmentModifier.GetFrequency(Freq.High),minValue,maxValue);
+			foreach (SE_Transform unit in units) {
+				unit.Update(new Vector3(bassAmount,midAmount,highAmount));
+			}
 		}
 	}
+
 }
