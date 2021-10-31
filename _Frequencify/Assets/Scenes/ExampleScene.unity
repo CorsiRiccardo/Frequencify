@@ -218,6 +218,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TestUI
       objectReference: {fileID: 0}
+    - target: {fileID: 3156142157213667938, guid: 63a5758befb03b74bb818733d21b5195, type: 3}
+      propertyPath: modifiers.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 63a5758befb03b74bb818733d21b5195, type: 3}
 --- !u!1 &519420028
