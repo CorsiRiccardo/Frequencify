@@ -28,6 +28,9 @@ namespace WordsManagement.AudioReactiveComponents {
 		private struct AudioTransformStruct {
 			public TransformUnit unit;
 			public Freq linkedFrequency;
+			
+			[Range(0,100)]public float minValue;
+			[Range(0,100)]public float maxValue;
 		}
 
 		[SerializeField] private AudioTransformStruct[] modifiers;
@@ -63,6 +66,7 @@ namespace WordsManagement.AudioReactiveComponents {
 				if (o is SE_Transform seUnit) {
 					seUnit.SetTransform(t);
 					seUnit.SetUnit(transformStruct.unit);
+					seUnit.SetRange(transformStruct.minValue,transformStruct.maxValue);
 					seUnit.freq = transformStruct.linkedFrequency;
 					units.Add(seUnit);
 				}
@@ -71,9 +75,9 @@ namespace WordsManagement.AudioReactiveComponents {
 		}
 
 		public override void SoundUpdate() {
-			var bassAmount = Mathf.Clamp(audioEnvironmentModifier.GetFrequency(Freq.Bass), minValue, maxValue);
-			var midAmount = Mathf.Clamp(audioEnvironmentModifier.GetFrequency(Freq.Mid), minValue, maxValue);
-			var highAmount = Mathf.Clamp(audioEnvironmentModifier.GetFrequency(Freq.High), minValue, maxValue);
+			var bassAmount = audioEnvironmentModifier.GetFrequency(Freq.Bass);
+			var midAmount = audioEnvironmentModifier.GetFrequency(Freq.Mid);
+			var highAmount = audioEnvironmentModifier.GetFrequency(Freq.High);
 			float myAmount = default;
 			foreach (SE_Transform unit in units) {
 				var f = unit.freq;

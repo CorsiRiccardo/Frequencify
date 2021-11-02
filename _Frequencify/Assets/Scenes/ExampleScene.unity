@@ -239,6 +239,26 @@ PrefabInstance:
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3156142157213667938, guid: 63a5758befb03b74bb818733d21b5195, type: 3}
+      propertyPath: modifiers.Array.data[0].maxValue
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 3156142157213667938, guid: 63a5758befb03b74bb818733d21b5195, type: 3}
+      propertyPath: modifiers.Array.data[0].minValue
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3156142157213667938, guid: 63a5758befb03b74bb818733d21b5195, type: 3}
+      propertyPath: modifiers.Array.data[1].maxValue
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 3156142157213667938, guid: 63a5758befb03b74bb818733d21b5195, type: 3}
+      propertyPath: modifiers.Array.data[1].minValue
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3156142157213667938, guid: 63a5758befb03b74bb818733d21b5195, type: 3}
+      propertyPath: modifiers.Array.data[2].maxValue
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3156142157213667938, guid: 63a5758befb03b74bb818733d21b5195, type: 3}
       propertyPath: modifiers.Array.data[1].linkedFrequency
       value: 1
       objectReference: {fileID: 0}

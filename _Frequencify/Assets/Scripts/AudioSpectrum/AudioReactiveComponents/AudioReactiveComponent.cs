@@ -6,8 +6,6 @@ using WordsManagement.AudioReactiveComponents;
 
 public class AudioReactiveComponent : MonoBehaviour,ISoundUpdated {
 	protected AudioEnvironmentModifier audioEnvironmentModifier;
-	[SerializeField,Range(0,100)]protected float minValue;
-	[SerializeField,Range(0,100)]protected float maxValue;
 
 	public virtual void Start() {
 		audioEnvironmentModifier = FindObjectOfType<AudioEnvironmentModifier>();

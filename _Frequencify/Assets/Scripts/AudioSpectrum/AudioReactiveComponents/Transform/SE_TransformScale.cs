@@ -4,7 +4,7 @@ namespace WordsManagement.AudioReactiveComponents {
 
 	public class SE_TransformScale : SE_Transform {
 
-		public override void Update(float amount) {
+		protected override void PostClampUpdate() {
 			var lScale = transform.localScale;
 			switch (unit) {
 				case AudioTransform.TransformUnit.XScale:

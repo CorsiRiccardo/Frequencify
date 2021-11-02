@@ -3,10 +3,8 @@
 namespace WordsManagement.AudioReactiveComponents {
 
 	public class SE_TransformRotation : SE_Transform {
-		
 
-		public override void Update(float amount) {
-			
+		protected override void PostClampUpdate() {
 			switch (unit) {
 				case AudioTransform.TransformUnit.XRotation:
 					transform.RotateAround(transform.position,Vector3.right,amount );

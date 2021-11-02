@@ -3,7 +3,7 @@
 namespace WordsManagement.AudioReactiveComponents {
 
 	public class SE_TransformPosition : SE_Transform {
-		public override void Update(float amount) {
+		protected override void PostClampUpdate() {
 			switch (unit) {
 				case AudioTransform.TransformUnit.XPosition:
 					break;
