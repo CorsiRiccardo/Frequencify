@@ -219,8 +219,32 @@ PrefabInstance:
       value: TestUI
       objectReference: {fileID: 0}
     - target: {fileID: 3156142157213667938, guid: 63a5758befb03b74bb818733d21b5195, type: 3}
+      propertyPath: minValue
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3156142157213667938, guid: 63a5758befb03b74bb818733d21b5195, type: 3}
       propertyPath: modifiers.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3156142157213667938, guid: 63a5758befb03b74bb818733d21b5195, type: 3}
+      propertyPath: modifiers.Array.data[0].unit
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3156142157213667938, guid: 63a5758befb03b74bb818733d21b5195, type: 3}
+      propertyPath: modifiers.Array.data[1].unit
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3156142157213667938, guid: 63a5758befb03b74bb818733d21b5195, type: 3}
+      propertyPath: modifiers.Array.data[2].unit
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3156142157213667938, guid: 63a5758befb03b74bb818733d21b5195, type: 3}
+      propertyPath: modifiers.Array.data[1].linkedFrequency
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3156142157213667938, guid: 63a5758befb03b74bb818733d21b5195, type: 3}
+      propertyPath: modifiers.Array.data[2].linkedFrequency
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 63a5758befb03b74bb818733d21b5195, type: 3}

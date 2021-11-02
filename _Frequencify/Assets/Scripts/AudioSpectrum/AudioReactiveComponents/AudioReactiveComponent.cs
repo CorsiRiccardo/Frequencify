@@ -6,7 +6,6 @@ using WordsManagement.AudioReactiveComponents;
 
 public class AudioReactiveComponent : MonoBehaviour,ISoundUpdated {
 	protected AudioEnvironmentModifier audioEnvironmentModifier;
-	[SerializeField]protected AudioEnvironmentModifier.Freq freq;
 	[SerializeField,Range(0,100)]protected float minValue;
 	[SerializeField,Range(0,100)]protected float maxValue;
 

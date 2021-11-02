@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using Unity.VisualScripting;
 using UnityEngine;
 using static AudioEnvironmentModifier;
@@ -10,6 +11,7 @@ namespace WordsManagement.AudioReactiveComponents {
 	public class AudioTransform : AudioReactiveComponent {
 		private Transform t;
 		private List<SE_Transform> units;
+
 		public enum TransformUnit {
 			XPosition,
 			YPosition,
@@ -29,16 +31,16 @@ namespace WordsManagement.AudioReactiveComponents {
 		}
 
 		[SerializeField] private AudioTransformStruct[] modifiers;
-		private Dictionary<TransformUnit,Type> unitClasses;
+		private Dictionary<TransformUnit, Type> unitClasses;
 
 		private void Awake() {
 			t = GetComponent<Transform>();
 			unitClasses = new Dictionary<TransformUnit, Type>()
 			{
 				{ TransformUnit.XPosition, typeof(SE_TransformPosition) },
-				{ TransformUnit.YPosition,typeof(SE_TransformPosition) },
+				{ TransformUnit.YPosition, typeof(SE_TransformPosition) },
 				{ TransformUnit.ZPosition, typeof(SE_TransformPosition) },
-				{ TransformUnit.XRotation,typeof(SE_TransformRotation) },
+				{ TransformUnit.XRotation, typeof(SE_TransformRotation) },
 				{ TransformUnit.YRotation, typeof(SE_TransformRotation) },
 				{ TransformUnit.ZRotation, typeof(SE_TransformRotation) },
 				{ TransformUnit.XScale, typeof(SE_TransformScale) },
@@ -55,11 +57,13 @@ namespace WordsManagement.AudioReactiveComponents {
 		private void InitUnits() {
 			units = new List<SE_Transform>();
 			foreach (AudioTransformStruct transformStruct in modifiers) {
-				Type type = unitClasses[transformStruct.unit];
-				var instance = Activator.CreateInstance(type);
-				if (instance is SE_Transform seUnit) {
+				Type classType = unitClasses[transformStruct.unit];
+				ConstructorInfo ctor = classType.GetConstructor(new []{typeof(Transform)});
+				var o = ctor?.Invoke(new object[]{transform});
+				if (o is SE_Transform seUnit) {
 					seUnit.SetTransform(t);
 					seUnit.SetUnit(transformStruct.unit);
+					seUnit.freq = transformStruct.linkedFrequency;
 					units.Add(seUnit);
 				}
 			}
@@ -67,14 +71,24 @@ namespace WordsManagement.AudioReactiveComponents {
 		}
 
 		public override void SoundUpdate() {
-			// var value = audioEnvironmentModifier.GetFrequency(freq);
-			// var clampedValue = Mathf.Clamp(value, minValue, maxValue);
-			// t.localScale = Vector3.one * clampedValue;
-			var bassAmount = Mathf.Clamp(audioEnvironmentModifier.GetFrequency(Freq.Bass),minValue,maxValue);
-			var midAmount = Mathf.Clamp(audioEnvironmentModifier.GetFrequency(Freq.Mid),minValue,maxValue);
-			var highAmount =  Mathf.Clamp(audioEnvironmentModifier.GetFrequency(Freq.High),minValue,maxValue);
+			var bassAmount = Mathf.Clamp(audioEnvironmentModifier.GetFrequency(Freq.Bass), minValue, maxValue);
+			var midAmount = Mathf.Clamp(audioEnvironmentModifier.GetFrequency(Freq.Mid), minValue, maxValue);
+			var highAmount = Mathf.Clamp(audioEnvironmentModifier.GetFrequency(Freq.High), minValue, maxValue);
+			float myAmount = default;
 			foreach (SE_Transform unit in units) {
-				unit.Update(new Vector3(bassAmount,midAmount,highAmount));
+				var f = unit.freq;
+				switch (f) {
+					case Freq.Bass:
+						myAmount = bassAmount;
+						break;
+					case Freq.Mid:
+						myAmount = midAmount;
+						break;
+					case Freq.High:
+						myAmount = highAmount;
+						break;
+				}
+				unit.Update(myAmount);
 			}
 		}
 	}

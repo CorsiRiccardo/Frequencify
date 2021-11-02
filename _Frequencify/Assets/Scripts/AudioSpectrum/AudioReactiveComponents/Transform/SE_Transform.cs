@@ -6,6 +6,7 @@ namespace WordsManagement.AudioReactiveComponents {
 		
 		protected Transform transform;
 		protected AudioTransform.TransformUnit unit;
+		public AudioEnvironmentModifier.Freq freq;
 
 		public SE_Transform(Transform transform) {
 			this.transform = transform;
@@ -17,8 +18,8 @@ namespace WordsManagement.AudioReactiveComponents {
 		public void SetUnit(AudioTransform.TransformUnit unit) {
 			this.unit = unit;
 		}
-
-		public virtual void Update(Vector3 frequencies) {
+		
+		public virtual void Update(float amount) {
 			
 		}
 	}
