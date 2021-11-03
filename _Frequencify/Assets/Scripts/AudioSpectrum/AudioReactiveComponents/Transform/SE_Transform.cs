@@ -6,14 +6,8 @@ namespace WordsManagement.AudioReactiveComponents {
 		
 		protected Transform transform;
 		protected AudioTransform.TransformUnit unit;
-		public AudioEnvironmentModifier.Freq freq;
-
-		private float minValue;
-		private float maxValue;
-
-		protected float amount;
-
-		public SE_Transform(Transform transform) {
+		
+		protected SE_Transform(Transform transform) {
 			this.transform = transform;
 		}
 
@@ -28,13 +22,5 @@ namespace WordsManagement.AudioReactiveComponents {
 			maxValue = rangeMax;
 		}
 		
-		public void Update(float amount) {
-			this.amount = Mathf.Clamp(amount, minValue, maxValue);
-			PostClampUpdate();
-		}
-
-		protected virtual void PostClampUpdate() {
-			
-		}
 	}
 }

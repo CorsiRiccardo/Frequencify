@@ -4,17 +4,17 @@ namespace WordsManagement.AudioReactiveComponents {
 
 	public class SE_TransformScale : SE_Transform {
 
-		protected override void PostClampUpdate() {
+		protected override void PostClampUpdate(float amount) {
 			var lScale = transform.localScale;
 			switch (unit) {
 				case AudioTransform.TransformUnit.XScale:
-					transform.localScale = (new Vector3(amount, lScale.y, lScale.z));
+					transform.localScale = (new Vector3(clampedAmount, lScale.y, lScale.z));
 					break;
 				case AudioTransform.TransformUnit.YScale:
-					transform.localScale = (new Vector3(lScale.x, amount, lScale.z));
+					transform.localScale = (new Vector3(lScale.x, clampedAmount, lScale.z));
 					break;
 				case AudioTransform.TransformUnit.ZScale:
-					transform.localScale = (new Vector3(lScale.x, lScale.y, amount));
+					transform.localScale = (new Vector3(lScale.x, lScale.y, clampedAmount));
 					break;
 			}
 

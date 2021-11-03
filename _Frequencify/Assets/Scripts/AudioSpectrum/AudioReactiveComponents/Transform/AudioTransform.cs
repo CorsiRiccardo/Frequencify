@@ -9,8 +9,12 @@ namespace WordsManagement.AudioReactiveComponents {
 
 	[RequireComponent(typeof(Transform))]
 	public class AudioTransform : AudioReactiveComponent {
-		private Transform t;
+
+		[SerializeField] private AudioTransformStruct[] modifiers;
+
 		private List<SE_Transform> units;
+		private Dictionary<TransformUnit, Type> unitClasses;
+		private Transform t;
 
 		public enum TransformUnit {
 			XPosition,
@@ -28,13 +32,10 @@ namespace WordsManagement.AudioReactiveComponents {
 		private struct AudioTransformStruct {
 			public TransformUnit unit;
 			public Freq linkedFrequency;
-			
-			[Range(0,100)]public float minValue;
-			[Range(0,100)]public float maxValue;
-		}
 
-		[SerializeField] private AudioTransformStruct[] modifiers;
-		private Dictionary<TransformUnit, Type> unitClasses;
+			[Range(0, 100)] public float minValue;
+			[Range(0, 100)] public float maxValue;
+		}
 
 		private void Awake() {
 			t = GetComponent<Transform>();
@@ -59,19 +60,19 @@ namespace WordsManagement.AudioReactiveComponents {
 
 		private void InitUnits() {
 			units = new List<SE_Transform>();
-			foreach (AudioTransformStruct transformStruct in modifiers) {
-				Type classType = unitClasses[transformStruct.unit];
-				ConstructorInfo ctor = classType.GetConstructor(new []{typeof(Transform)});
-				var o = ctor?.Invoke(new object[]{transform});
+			foreach (AudioTransformStruct s in modifiers) {
+				Type classType = unitClasses[s.unit];
+				ConstructorInfo ctor = classType.GetConstructor(new[] { typeof(Transform) });
+				var o = ctor?.Invoke(new object[] { transform });
 				if (o is SE_Transform seUnit) {
 					seUnit.SetTransform(t);
-					seUnit.SetUnit(transformStruct.unit);
-					seUnit.SetRange(transformStruct.minValue,transformStruct.maxValue);
-					seUnit.freq = transformStruct.linkedFrequency;
+					seUnit.SetUnit(s.unit);
+					seUnit.SetRange(s.minValue, s.maxValue);
+					seUnit.freq = s.linkedFrequency;
 					units.Add(seUnit);
 				}
 			}
-			Debug.Log($"Units count:{units.Count}");
+			// Debug.Log($"Units count:{units.Count}");
 		}
 
 		public override void SoundUpdate() {
